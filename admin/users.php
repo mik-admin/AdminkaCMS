@@ -6,11 +6,16 @@
     <link rel="stylesheet" href="admin.css"/>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
           integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <style>
+        img {
+            max-width: 150px;
+        }
+    </style>
 </head>
 <body>
 
 <?php
-require '../db_connect.php';
+require './libs/db_connect.php';
 $sql = "SELECT * FROM users";
 $result = $conn->query($sql);
 
@@ -35,6 +40,7 @@ if ($result->num_rows > 0) {
         <th>Фамилия</th>
         <th>Имя</th>
         <th>Отчество</th>
+        <th>Фото</th>
         <th>Настройки</th>
     </tr>
 
@@ -49,6 +55,7 @@ if ($result->num_rows > 0) {
         echo "<td>" . $row["last_name"] . "</td>";
         echo "<td>" . $row["first_name"] . "</td>";
         echo "<td>" . $row["middle_name"] . "</td>";
+        echo "<td><img src='photos/" . $row["photo"] . "'/></td>";
 
         echo "<td>" . "<a href='user_edit.php?user_id=$user_id'>Редактировать</a>" .
             "<span id='$user_id' href='#modalbox' class='modal-open'><i class='fa fa-times' aria-hidden='true' style='color: #000;'></i></span>" .
