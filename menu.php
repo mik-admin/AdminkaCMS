@@ -1,5 +1,8 @@
 <nav>
     <ul>
+        <li>
+            <a href="page.php?id=1">Страница</a>
+        </li>
         <li>About</li>
         <li>Home</li>
         <li>Contacts</li>

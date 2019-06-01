@@ -1,6 +1,6 @@
 <?php
 
-require "db_connect.php";
+require "../libs/db_connect.php";
 
 $sql = "SELECT name FROM cities";
 $result = $conn->query($sql);

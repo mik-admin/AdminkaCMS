@@ -1,5 +1,6 @@
 <?php
-require '../db_connect.php';
+require '../libs/db_connect.php';
+// проверяем, что пришли данные из формы
 if (isset($_POST["login"])) {
     $user_id = $_POST["user_id"];
     $login = $_POST["login"];

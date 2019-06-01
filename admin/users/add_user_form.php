@@ -6,10 +6,9 @@
     <input type="text" placeholder="Фамилия" name="last_name" />
     <input type="text" placeholder="Отчество" name="middle_name" />
     <input type="file" name="userPhoto" />
-    <!-- todo: сделать подгрузку городов из БД -->
     <select name="city">
         <?php
-            require "./libs/city_options.php";
+            require "city_options.php";
         ?>
     </select>
     <input type="submit" value="Зарегестрироваться" />

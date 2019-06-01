@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Пользователи</title>
-    <link rel="stylesheet" href="admin.css"/>
+    <link rel="stylesheet" href="users.css"/>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
           integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <style>
@@ -15,22 +15,24 @@
 <body>
 
 <?php
-require './libs/db_connect.php';
+require '../libs/db_connect.php';
 $sql = "SELECT * FROM users";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
 ?>
 
-<div class="modal-fon"></div>
+    <div class="modal-fon"></div>
 
-<div id="modalbox" class="modal-card">
-    <i class="fa fa-times" class="modal-close" aria-hidden="true"></i>
-    <div class="modal-window">
-        <h2>Подтвердите удаление</h2>
-        <a href="" id="deleteLink" class="delete">Удалить</a>
+    <div id="modalbox" class="modal-card">
+        <i class="fa fa-times" class="modal-close" aria-hidden="true"></i>
+        <div class="modal-window">
+            <h2>Подтвердите удаление</h2>
+            <a href="" id="deleteLink" class="delete">Удалить</a>
+        </div>
     </div>
-</div>
+<?php require '../adminMenu.php' ?>
+    <a href="../users/add_user_form.php">Добавить пользователя</a>
 <table class="users_table">
     <tr>
         <th>ID</th>
@@ -46,6 +48,12 @@ if ($result->num_rows > 0) {
 
     <?php
     while ($row = $result->fetch_assoc()) {
+        //Подставляем заглушку, если фотографии нет
+        if ($row["photo"] == '') {
+            $photo = 'user.jpg';
+        } else {
+            $photo = $row["photo"];
+        }
         $user_id = $row["user_id"];
         echo "<tr>";
         echo "<td>" . $row["user_id"] . "</td>";
@@ -55,7 +63,8 @@ if ($result->num_rows > 0) {
         echo "<td>" . $row["last_name"] . "</td>";
         echo "<td>" . $row["first_name"] . "</td>";
         echo "<td>" . $row["middle_name"] . "</td>";
-        echo "<td><img src='photos/" . $row["photo"] . "'/></td>";
+        echo "<td>
+<div class='img'><a href='../admin/edit_photo.php?user_id=$user_id'><span>Ред.</span></a><img src='photos/" . $photo . "'/></div></td>";
 
         echo "<td>" . "<a href='user_edit.php?user_id=$user_id'>Редактировать</a>" .
             "<span id='$user_id' href='#modalbox' class='modal-open'><i class='fa fa-times' aria-hidden='true' style='color: #000;'></i></span>" .
@@ -76,8 +85,8 @@ $conn->close();
 ?>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-<script src="js/admin.js"></script>
-<script src="js/modalBox.js"></script>
+<script src="../js/admin.js"></script>
+<script src="../js/modalBox.js"></script>
 
 </body>
 </html>
